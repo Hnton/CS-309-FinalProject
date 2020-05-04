@@ -18,17 +18,17 @@ mod block;
 
 pub struct Disk 
 {
-    pub diskContent: Vec<String>,
-    pub file: File,
+    pub disk_content: Vec<String>,
+    pub file: String,
     pub mounted: bool,
     pub reads: i128,
     pub writes: i128, 
 }
 
 impl Disk {
-    pub fn new(f: File) -> Disk{
+    pub fn new(f: String) -> Disk{
         Disk {
-            diskContent: Vec::<String>::new(),
+            disk_content: Vec::<String>::new(),
             file: f,
             mounted: false,
             reads: 0,
@@ -41,15 +41,25 @@ impl Disk {
     // system is mounted and the superblock instance is available. The superblock
     // instance stored in memory after reading from block 0 should have a list of all
     // free inodes and blocks from the disk (see design)
-    pub fn open(&mut self, f: String) -> bool {
-        let x = std::fs::read_to_string(f).ok();
+    pub fn open(&mut self, mut f: String) -> bool {
+        let x = std::fs::read_to_string(&f).ok();
+        println!("y");
         match x {
             Some(a) => {
                 let path = Path::new(&f);
-                // self.diskContent = a.lines(); //might have to convert a.lines into a vector of strings
-                let file = File::open(f);
+                // for line in a.lines()
+                // {
+                //     self.diskContent.append(&line);
+                // }
+                println!("test: {:?}", a.lines());
+                let mut temp: Vec<&str> = a.lines().collect();
+                println!("tezt: {:?}", temp);
+
+                // self.diskContent.append(&mut a.lines().collect()); //might have to convert a.lines into a vector of strings
+                let file = File::open(&f).expect("Unable to open");
                 let mut reader = BufReader::new(file);
                 for line in reader.lines(){
+
                 }
                 true
             },
@@ -75,4 +85,10 @@ impl Disk {
 
 fn main() {
     println!("Hello, world!");
+    let x = "test.txt";
+    let mut test = Disk::new((&x).to_string());
+    test.open((&x).to_string());
+    println!("miss");
+    println!("{}", x.to_string());
+
 }
