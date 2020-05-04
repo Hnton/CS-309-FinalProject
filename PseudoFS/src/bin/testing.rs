@@ -4,6 +4,7 @@ use std::time::{SystemTime, Instant};
 mod block;
 // mod disk;
 mod inode;
+mod directory;
 
 fn main() {
     
@@ -24,5 +25,11 @@ fn main() {
     _test2.to_JSON();
 
     inode::Inode::from_JSON(JSO_Inode);
+
+
+    let mut _test3 = directory::Directory::new();
+
+    println!("{}", _test3);
+
 
 }

@@ -7,6 +7,8 @@ use std::fs;
 use std::path::Path;
 use std::ffi::OsStr;
 
+mod block;
+mod disk;
 
 
 // here can be added to the diagnostics output to show the number of block reads/writes
@@ -51,24 +53,16 @@ impl Disk {
 
     // Close the disk. All data write operations must be completed. If successful, the
     // file system is unmounted.
-    pub fn close(d: Disk) -> bool {
+    pub fn close(d: disk::Disk) -> bool {
 
         return false;
     }
 
     // Write the block parameter to the given block id on the given disk. Return true if
     // successful and false if not
-    pub fn write(d: Disk, blockID: i64, b: Block) -> bool {
+    pub fn write(d: disk::Disk, blockID: i64, b: block::Block) -> bool {
 
         return false;
 
     }
-
-
 }
-
-
-fn main() {
-    println!("Hello, world!");
-}
-

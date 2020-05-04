@@ -47,7 +47,5 @@ impl Inode {
         println!("{:?}", back);
 
         back
-    }
-
-    
+    }    
 }
