@@ -49,3 +49,6 @@ impl Inode {
         back
     }    
 }
+fn main() {
+    println!("Hello, world!");
+}

@@ -39,3 +39,7 @@ impl Block {
 
     
 }
+
+fn main() {
+    println!("Hello, world!");
+}
