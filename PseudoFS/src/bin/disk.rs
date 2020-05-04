@@ -42,8 +42,8 @@ impl Disk {
     // instance stored in memory after reading from block 0 should have a list of all
     // free inodes and blocks from the disk (see design)
     pub fn open(&mut self, mut f: String) -> bool {
-        let x = std::fs::read_to_string(&f).ok();
-        println!("y");
+        let x = std::fs::read_to_string("test.txt").ok();
+        println!(" x: {:?}", x);
         match x {
             Some(a) => {
                 let path = Path::new(&f);
@@ -52,7 +52,7 @@ impl Disk {
                 //     self.diskContent.append(&line);
                 // }
                 println!("test: {:?}", a.lines());
-                let mut temp: Vec<&str> = a.lines().collect();
+                let temp: Vec<&str> = a.lines().collect();
                 println!("tezt: {:?}", temp);
 
                 // self.diskContent.append(&mut a.lines().collect()); //might have to convert a.lines into a vector of strings
@@ -85,10 +85,12 @@ impl Disk {
 
 fn main() {
     println!("Hello, world!");
-    let x = "test.txt";
-    let mut test = Disk::new((&x).to_string());
-    test.open((&x).to_string());
-    println!("miss");
-    println!("{}", x.to_string());
+    let mut file = File::open("test.txt").expect("Can't open");
+    let mut contents = String::new();
+    file.read_to_string(&mut contents).expect("Oops can't read file");
+    println!("File Contents:\n\n{} ", contents);
+    // let mut test = Disk::new((&x).to_string());
+    // test.open((&x).to_string());
+    // println!("{}", x.to_string());
 
 }
