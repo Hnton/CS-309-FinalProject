@@ -1,48 +1,112 @@
-// A disk will be how the file system interacts with the underlying file. A disk instance is created
-// when the file is mounted and will open the file for read/write. The file will stay opened through
-// the disk structure as long as the file system is mounted. The fields in the disk structure listed
-// here can be added to the diagnostics output to show the number of block reads/writes
-// (otherwise they aren’t needed).
-pub struct Disk {
-    pub file: String,
-    pub blocks: i64,
-    pub reads: i128,
-    pub writes: i128, 
-    pub mounted: bool
-}
-
-impl Disk {
-
-    // Open the disk parameter. If successful and the superblock is valid, the file
-    // system is mounted and the superblock instance is available. The superblock
-    // instance stored in memory after reading from block 0 should have a list of all
-    // free inodes and blocks from the disk (see design)
-    pub fn open(f: String) -> bool {
-
-
-        return false;
-    }
-
-    // Close the disk. All data write operations must be completed. If successful, the
-    // file system is unmounted.
-    pub fn close(d: Disk) -> bool {
-
-        return false;
-    }
-
-    // Write the block parameter to the given block id on the given disk. Return true if
-    // successful and false if not
-    pub fn write(d: Disk, blockID: i64, b: Block) -> bool {
-
-        return false;
-
-    }
-
-
-}
-
 
 fn main() {
-    println!("Hello, world!");
+    
+  
+
+    println!("Welcome to the PseudoFS Shell\n");
+
+    loop {
+
+        println!("Choose one of the following actions");
+        println!("1. Create a new disk image");
+        println!("2. Format a disk image");
+        println!("3. Mount a formatted disk image");
+        println!("4. Unmount a disk image");
+        println!("5. Diagnostics");
+        println!("6. Delete");
+        println!("7. Cat");
+        println!("8. LS");
+        println!("9. Copyin");
+        println!("10. Copyout");
+        println!("11. Help");
+        println!("12. exit\n");
+        println!("Enter your selection: ");
+
+        let mut input = String::new();
+        let mut fileName = String::new();
+        let mut fileContents = String::new();
+        // let FileSystem fs = FileSystem:new();
+
+
+        std::io::stdin().read_line(&mut input).expect("Failed to read line");
+
+        match input.trim().as_ref() {
+            // CREATE
+            "1" => { 
+                println!("1. Create a new disk image");
+            }
+            // FORMAT
+            "2" => { 
+                println!("Enter the disk image name (assume it is in the disk\\ folder): ");
+
+                std::io::stdin().read_line(&mut fileName).expect("Failed to read line");
+
+            }
+            // MOUNT
+            "3" => { 
+                println!("Enter the disk image name (assume it is in the disks\\ folder): ");
+                
+                std::io::stdin().read_line(&mut fileName).expect("Failed to read line");
+
+            } 
+            // UNMOUNT
+            "4" => { 
+                println!("4. Unmount a disk image");
+            }
+            // DEBUG
+            "5" => { 
+                println!("5. Diagnostics");
+            }
+            // DELETE
+            "6" => { 
+                println!("Enter the file name to delete: ");
+
+                std::io::stdin().read_line(&mut fileName).expect("Failed to read line");
+
+            }
+            // CAT
+            "7" => { 
+                println!("Enter the file name to display: ");
+
+                std::io::stdin().read_line(&mut fileName).expect("Failed to read line");
+
+            }
+            // LS
+            "8" => { 
+                println!("8. LS");
+            }
+            // COPY IN
+            "9" => { 
+                println!("Enter the path to the file on your computer to read: ");
+
+                std::io::stdin().read_line(&mut fileName).expect("Failed to read line");
+
+            }
+            // COPY OUT
+            "10" => { 
+                println!("Enter the name of the file to save (from ls output): ");
+
+                std::io::stdin().read_line(&mut fileName).expect("Failed to read line");
+
+            }
+            // HELP
+            "11" => { 
+                println!("\nHELP CHARLES\n");
+            }
+            // EXIT
+            "12" => { 
+                println!("\nThank you for using PseudoFS Shell\n"); 
+                {break; }  
+            }
+               _ => { 
+                   println!("\nINVALID\n");
+            }
+
+
+        }
+
+    }
+
+
 }
 
