@@ -26,10 +26,10 @@ pub struct Disk
 }
 
 impl Disk {
-    pub fn new(f: String) -> Disk{
+    pub fn new() -> Disk{
         Disk {
             disk_content: Vec::<String>::new(),
-            file: f,
+            file: "".to_string(),
             mounted: false,
             reads: 0,
             writes: 0
@@ -41,26 +41,18 @@ impl Disk {
     // system is mounted and the superblock instance is available. The superblock
     // instance stored in memory after reading from block 0 should have a list of all
     // free inodes and blocks from the disk (see design)
-    pub fn open(&mut self, mut f: String) -> bool {
-        let x = std::fs::read_to_string("test.txt").ok();
-        println!(" x: {:?}", x);
+    pub fn open(&mut self, f: &std::string::String) -> bool {
+        let x = std::fs::read_to_string(&f).ok();
+        self.file = (&f).to_string();
         match x {
             Some(a) => {
-                let path = Path::new(&f);
-                // for line in a.lines()
-                // {
-                //     self.diskContent.append(&line);
-                // }
-                println!("test: {:?}", a.lines());
-                let temp: Vec<&str> = a.lines().collect();
-                println!("tezt: {:?}", temp);
-
-                // self.diskContent.append(&mut a.lines().collect()); //might have to convert a.lines into a vector of strings
-                let file = File::open(&f).expect("Unable to open");
-                let mut reader = BufReader::new(file);
-                for line in reader.lines(){
-
+                // let path = Path::new(&f);
+                for line in a.lines()
+                {
+                    self.disk_content.push(line.to_string());
                 }
+                println!("tezt: {:?}", self.disk_content);
+                self.mounted = true;
                 true
             },
             None => false
@@ -84,13 +76,13 @@ impl Disk {
 }
 
 fn main() {
-    println!("Hello, world!");
-    let mut file = File::open("test.txt").expect("Can't open");
-    let mut contents = String::new();
-    file.read_to_string(&mut contents).expect("Oops can't read file");
-    println!("File Contents:\n\n{} ", contents);
-    // let mut test = Disk::new((&x).to_string());
-    // test.open((&x).to_string());
-    // println!("{}", x.to_string());
+    // println!("Hello, world!");
+    // let mut file = File::open("D:/GIT/projects/CS-309-FinalProject/PseudoFS/src/test.txt").expect("Can't open");
+    let temp = "D:/GIT/projects/CS-309-FinalProject/PseudoFS/src/test.txt";
+    let mut disk =  Disk::new();
+    // let mut contents = String::new();
+    // file.read_to_string(&mut contents).expect("Oops can't read file");
+    // println!("File Contents:\n\n{} ", contents);
+    disk.open(&temp.to_string());
 
 }
